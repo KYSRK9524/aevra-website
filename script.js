@@ -1,16 +1,12 @@
-const faders = document.querySelectorAll(".fade-in");
+// Smooth scroll animation trigger
+const elements = document.querySelectorAll(".fade-in");
 
-const appearOptions = {
-threshold:0.2
-};
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add("show");
+    }
+  });
+}, { threshold: 0.15 });
 
-const appearOnScroll = new IntersectionObserver(function(entries){
-entries.forEach(entry=>{
-if(!entry.isIntersecting) return;
-entry.target.classList.add("show");
-});
-}, appearOptions);
-
-faders.forEach(fader=>{
-appearOnScroll.observe(fader);
-});
+elements.forEach(el => observer.observe(el));
