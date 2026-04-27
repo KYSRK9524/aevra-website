@@ -1,169 +1,932 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>AEVRA | Brand Growth Partner</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AEVRA — Brand Growth Partner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E8C97A;
+  --black: #080808;
+  --dark: #0f0f0f;
+  --dark2: #161616;
+  --gray: #888;
+  --light: #f5f3ef;
+  --white: #ffffff;
+}
 
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+*, *::before, *::after {
+  margin: 0; padding: 0; box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* ── NOISE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 28px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent);
+}
+
+.logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 6px;
+  color: var(--gold);
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--gray);
+  transition: color 0.3s;
+}
+
+.nav-links a:hover { color: var(--white); }
+
+/* ── HERO ── */
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  padding: 0 20px;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 60%, rgba(201,168,76,0.07) 0%, transparent 70%);
+}
+
+.hero-line {
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 80px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  opacity: 0.5;
+}
+
+.hero-tag {
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: fadeUp 1s 0.3s forwards;
+}
+
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(52px, 8vw, 110px);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -2px;
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: fadeUp 1s 0.5s forwards;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.hero-sub {
+  max-width: 520px;
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--gray);
+  margin-bottom: 48px;
+  opacity: 0;
+  animation: fadeUp 1s 0.7s forwards;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  opacity: 0;
+  animation: fadeUp 1s 0.9s forwards;
+}
+
+.btn-primary {
+  padding: 16px 40px;
+  background: var(--gold);
+  color: var(--black);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.btn-primary:hover {
+  background: var(--gold-light);
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  padding: 16px 40px;
+  border: 1px solid rgba(255,255,255,0.15);
+  color: var(--white);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.btn-ghost:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* ── MARQUEE ── */
+.marquee-wrap {
+  background: var(--gold);
+  padding: 14px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.marquee-track {
+  display: inline-flex;
+  animation: marquee 20s linear infinite;
+}
+
+.marquee-item {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--black);
+  font-weight: 500;
+  padding: 0 40px;
+}
+
+.marquee-dot {
+  color: rgba(0,0,0,0.3);
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ── PROBLEM ── */
+.problem {
+  padding: 140px 60px;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.problem-label {
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+
+.problem h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 300;
+  line-height: 1.1;
+  margin-bottom: 32px;
+}
+
+.problem p {
+  color: var(--gray);
+  font-size: 15px;
+  line-height: 1.9;
+  margin-bottom: 20px;
+}
+
+.problem-visual {
+  position: relative;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.problem-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(201,168,76,0.15);
+}
+
+.ring1 { width: 300px; height: 300px; animation: pulse 4s ease-in-out infinite; }
+.ring2 { width: 220px; height: 220px; animation: pulse 4s ease-in-out 1s infinite; }
+.ring3 { width: 140px; height: 140px; animation: pulse 4s ease-in-out 2s infinite; }
+
+.ring-center {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--black);
+  font-weight: 600;
+  text-transform: uppercase;
+  z-index: 1;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.05); opacity: 0.6; }
+}
+
+/* ── SERVICES ── */
+.services {
+  padding: 120px 60px;
+  background: var(--dark);
+  border-top: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.services-header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 80px;
+}
+
+.section-label {
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.services-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 4vw, 52px);
+  font-weight: 300;
+  line-height: 1.1;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.service-card {
+  padding: 56px 44px;
+  background: var(--dark2);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s;
+  cursor: default;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s;
+}
+
+.service-card:hover::before { transform: scaleX(1); }
+.service-card:hover { background: #1a1a1a; }
+
+.service-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px;
+  font-weight: 300;
+  color: rgba(201,168,76,0.15);
+  line-height: 1;
+  margin-bottom: 24px;
+}
+
+.service-card h3 {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+}
+
+.service-card p {
+  font-size: 14px;
+  color: var(--gray);
+  line-height: 1.8;
+}
+
+/* ── WHO ── */
+.who {
+  padding: 140px 60px;
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.who h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 300;
+  margin-bottom: 64px;
+  line-height: 1.1;
+}
+
+.who-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.who-item {
+  padding: 48px 32px;
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: border-color 0.3s;
+}
+
+.who-item:hover { border-color: rgba(201,168,76,0.3); }
+
+.who-icon {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.who-item h3 {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+
+.who-item p {
+  font-size: 13px;
+  color: var(--gray);
+  line-height: 1.8;
+}
+
+/* ── FOUNDER ── */
+.founder {
+  padding: 140px 60px;
+  background: var(--dark);
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+
+.founder-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.founder-img-wrap {
+  position: relative;
+}
+
+.founder-img-wrap::before {
+  content: '';
+  position: absolute;
+  top: -16px; left: -16px;
+  right: 16px; bottom: 16px;
+  border: 1px solid rgba(201,168,76,0.3);
+  z-index: 0;
+}
+
+.founder-img-wrap img {
+  width: 100%;
+  display: block;
+  position: relative;
+  z-index: 1;
+  filter: grayscale(20%);
+}
+
+.founder-text .section-label { margin-bottom: 20px; }
+
+.founder-text h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 3vw, 48px);
+  font-weight: 300;
+  margin-bottom: 32px;
+  line-height: 1.1;
+}
+
+.founder-text p {
+  font-size: 15px;
+  color: var(--gray);
+  line-height: 1.9;
+  margin-bottom: 20px;
+}
+
+.founder-sig {
+  margin-top: 32px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-style: italic;
+  color: var(--gold);
+}
+
+.founder-meta {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-top: 4px;
+}
+
+/* ── PROCESS ── */
+.process {
+  padding: 140px 60px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.process-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.process-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 4vw, 52px);
+  font-weight: 300;
+  line-height: 1.1;
+}
+
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  position: relative;
+}
+
+.process-steps::before {
+  content: '';
+  position: absolute;
+  top: 28px; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  opacity: 0.3;
+}
+
+.step {
+  text-align: center;
+  padding: 0 16px;
+  position: relative;
+}
+
+.step-dot {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  border: 1px solid rgba(201,168,76,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--gold);
+  background: var(--black);
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s;
+}
+
+.step:hover .step-dot {
+  background: var(--gold);
+  color: var(--black);
+}
+
+.step h4 {
+  font-size: 13px;
+  letter-spacing: 1px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.step p {
+  font-size: 12px;
+  color: var(--gray);
+  line-height: 1.7;
+}
+
+/* ── CONTACT ── */
+.contact {
+  padding: 140px 60px;
+  background: var(--dark);
+  border-top: 1px solid rgba(255,255,255,0.04);
+  text-align: center;
+}
+
+.contact-inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.contact h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 4vw, 60px);
+  font-weight: 300;
+  line-height: 1.05;
+  margin-bottom: 20px;
+}
+
+.contact h2 em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.contact-sub {
+  color: var(--gray);
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 56px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 18px 24px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: rgba(255,255,255,0.25);
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: rgba(201,168,76,0.4);
+}
+
+.contact-form textarea {
+  height: 140px;
+  resize: none;
+}
+
+.contact-form button {
+  padding: 20px;
+  background: var(--gold);
+  color: var(--black);
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.contact-form button:hover {
+  background: var(--gold-light);
+  transform: translateY(-2px);
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 40px 60px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  letter-spacing: 6px;
+  color: var(--gold);
+}
+
+.footer-copy {
+  font-size: 12px;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 1px;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ── MOBILE ── */
+@media (max-width: 900px) {
+  nav { padding: 24px 24px; }
+  .nav-links { display: none; }
+
+  .problem { grid-template-columns: 1fr; padding: 80px 24px; gap: 40px; }
+  .problem-visual { height: 280px; }
+  .ring1 { width: 220px; height: 220px; }
+  .ring2 { width: 160px; height: 160px; }
+  .ring3 { width: 100px; height: 100px; }
+
+  .services { padding: 80px 24px; }
+  .services-grid { grid-template-columns: 1fr; gap: 2px; }
+
+  .who { padding: 80px 24px; }
+  .who-grid { grid-template-columns: 1fr; gap: 16px; }
+
+  .founder { padding: 80px 24px; }
+  .founder-inner { grid-template-columns: 1fr; gap: 48px; }
+  .founder-img-wrap { max-width: 280px; margin: 0 auto; }
+
+  .process { padding: 80px 24px; }
+  .process-steps { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .process-steps::before { display: none; }
+
+  .contact { padding: 80px 24px; }
+  footer { padding: 32px 24px; flex-direction: column; gap: 16px; text-align: center; }
+
+  .hero-cta { flex-direction: column; }
+}
+</style>
 </head>
-
 <body>
 
-<!-- NAVBAR -->
+<!-- NAV -->
 <nav>
-  <div class="nav-container">
-    <div class="logo">AEVRA</div>
-
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#process">Process</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </div>
+  <div class="logo">AEVRA</div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-content fade-in">
-    <h1>We Help Emerging Brands<br>Launch, Grow & Dominate Attention</h1>
-    <p>
-      From zero to demand — we build content, influence, and growth systems 
-      that turn new-age brands into market players.
-    </p>
-    <a href="#contact" class="btn">Start Your Brand Growth</a>
-    <p class="trust-line">Built for founders, creators & D2C brands</p>
+  <div class="hero-bg"></div>
+  <p class="hero-tag">Brand Growth Partner</p>
+  <h1>We Build Brands<br>That <em>Dominate</em><br>Attention</h1>
+  <p class="hero-sub">Premium lifestyle and D2C brands don't fail because of bad products. They fail because nobody notices them. We fix that.</p>
+  <div class="hero-cta">
+    <a href="#contact" class="btn-primary">Start Your Growth</a>
+    <a href="#services" class="btn-ghost">See How We Work</a>
   </div>
+  <div class="hero-line"></div>
 </section>
 
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Brand Positioning <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Content Systems <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Influence & Distribution <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">D2C Growth <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Lifestyle Brands <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">International Reach <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Motorsport & Music <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Brand Positioning <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Content Systems <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Influence & Distribution <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">D2C Growth <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Lifestyle Brands <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">International Reach <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Motorsport & Music <span class="marquee-dot">◆</span></span>
+  </div>
+</div>
+
 <!-- PROBLEM -->
-<section class="section">
-  <div class="fade-in">
-    <h2>Most Brands Don’t Fail Because of the Product</h2>
-    <p class="narrow">
-      They fail because no one notices them.<br><br>
-      Weak positioning, inconsistent content, and scattered marketing stop brands from gaining traction.
-      <br><br>
-      Attention is the real currency. Without it, growth doesn’t exist.
-    </p>
+<section class="problem">
+  <div class="reveal">
+    <p class="problem-label">The Real Problem</p>
+    <h2>Attention is the currency. Most brands are broke.</h2>
+    <p>Weak positioning, inconsistent content, and scattered strategy stop great brands from gaining the traction they deserve.</p>
+    <p>It's not a product problem. It's a visibility problem. And visibility is exactly what we build.</p>
+  </div>
+  <div class="problem-visual reveal reveal-delay-2">
+    <div class="problem-ring ring1"></div>
+    <div class="problem-ring ring2"></div>
+    <div class="problem-ring ring3"></div>
+    <div class="ring-center">AEVRA</div>
   </div>
 </section>
 
 <!-- SERVICES -->
-<section id="services" class="section">
-  <h2 class="fade-in">What We Do</h2>
-
-  <div class="cards">
-
-    <a href="#" class="card fade-in">
-      <h3>🚀 Brand Positioning</h3>
-      <p>We define how your brand stands out and connects with the right audience.</p>
-    </a>
-
-    <a href="#" class="card fade-in">
-      <h3>🎬 Content Engine</h3>
-      <p>We create structured content that builds trust and drives engagement.</p>
-    </a>
-
-    <a href="#" class="card fade-in">
-      <h3>🤝 Influence & Distribution</h3>
-      <p>We amplify your brand through creators and strategic visibility.</p>
-    </a>
-
+<section id="services" class="services">
+  <div class="services-header reveal">
+    <p class="section-label">What We Do</p>
+    <h2>Growth Systems.<br>Not Random Marketing.</h2>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-num">01</div>
+      <h3>Brand Positioning</h3>
+      <p>We define exactly how your brand stands out, who it speaks to, and why they should choose you — with precision and intent.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-num">02</div>
+      <h3>Content Engine</h3>
+      <p>Structured, consistent content that builds trust, grows your audience, and drives real engagement — not just vanity metrics.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-3">
+      <div class="service-num">03</div>
+      <h3>Influence & Distribution</h3>
+      <p>We amplify your brand through the right creators and channels — putting your brand in front of the audiences that matter.</p>
+    </div>
   </div>
 </section>
 
 <!-- WHO -->
-<section class="section">
-  <div class="box dark-box fade-in">
-    <h2>Built for Brands That Want to Grow Fast</h2>
-    <p>
-      Founders launching new products<br>
-      Creators building their own brands<br>
-      D2C brands struggling with visibility
-    </p>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about" class="section">
-  <div class="box light-box fade-in">
-    <h2>About AEVRA</h2>
-    <p>
-      AEVRA partners with ambitious brands to build visibility, credibility, and demand.
-      <br><br>
-      We design growth systems — not random marketing — to help brands scale with clarity and structure.
-    </p>
+<section class="who">
+  <h2 class="reveal">Built for brands<br>that are serious about growth.</h2>
+  <div class="who-grid">
+    <div class="who-item reveal">
+      <div class="who-icon">🏎</div>
+      <h3>Lifestyle & Motorsport</h3>
+      <p>Brands operating in premium, culture-driven spaces where identity and image are everything.</p>
+    </div>
+    <div class="who-item reveal reveal-delay-2">
+      <div class="who-icon">🎵</div>
+      <h3>Music & Culture</h3>
+      <p>Artists, labels, and cultural brands looking to build demand and a loyal audience internationally.</p>
+    </div>
+    <div class="who-item reveal reveal-delay-3">
+      <div class="who-icon">📦</div>
+      <h3>D2C Founders</h3>
+      <p>Emerging direct-to-consumer brands that have a great product but need visibility to match.</p>
+    </div>
   </div>
 </section>
 
 <!-- FOUNDER -->
-<section class="section founder">
-  <div class="founder-card fade-in">
-
-    <h2 class="founder-title">A Note from the Founder</h2>
-
-    <div class="founder-layout">
-      <img src="founder.jpg" alt="Founder">
-
-      <div class="founder-content">
-        <p>
-          AEVRA was built on one belief — growth should be intentional, not accidental.
-        </p>
-
-        <p>
-          In today’s world, visibility isn’t enough. Brands need structure, positioning, and execution.
-        </p>
-
-        <p>
-          We don’t create noise — we build systems that drive real growth.
-        </p>
-
-        <div class="founder-signature">— KYSRK</div>
-      </div>
+<section id="about" class="founder">
+  <div class="founder-inner">
+    <div class="founder-img-wrap reveal">
+      <img src="founder.jpg" alt="Yaswanth Kollimarla — Founder of AEVRA">
     </div>
-
+    <div class="founder-text reveal reveal-delay-2">
+      <p class="section-label">The Founder</p>
+      <h2>Growth should be intentional.<br>Not accidental.</h2>
+      <p>AEVRA was built on one belief — that brands in the lifestyle and culture space deserve more than generic marketing. They deserve systems built specifically for who they are and who they want to reach.</p>
+      <p>At 20 years old, building from Hyderabad with international ambition — I understand what it means to build something from nothing and make the world notice it.</p>
+      <p>That's exactly what we help our clients do.</p>
+      <div class="founder-sig">Yaswanth Kollimarla</div>
+      <div class="founder-meta">Founder, AEVRA</div>
+    </div>
   </div>
 </section>
 
 <!-- PROCESS -->
-<section id="process" class="section">
-  <h2>The AEVRA Growth System</h2>
-
-  <div class="orbit">
-    <div class="center">Strategy</div>
-
-    <div class="orbit-item i1">Discover</div>
-    <div class="orbit-item i2">Strategize</div>
-    <div class="orbit-item i3">Execute</div>
-    <div class="orbit-item i4">Scale</div>
-    <div class="orbit-item i5">Optimize</div>
+<section id="process" class="process">
+  <div class="process-header reveal">
+    <p class="section-label">How We Work</p>
+    <h2>The AEVRA Growth System</h2>
+  </div>
+  <div class="process-steps">
+    <div class="step reveal">
+      <div class="step-dot">01</div>
+      <h4>Discover</h4>
+      <p>Deep dive into your brand, audience, and market position</p>
+    </div>
+    <div class="step reveal reveal-delay-1">
+      <div class="step-dot">02</div>
+      <h4>Strategize</h4>
+      <p>Build a custom growth system tailored to your goals</p>
+    </div>
+    <div class="step reveal reveal-delay-2">
+      <div class="step-dot">03</div>
+      <h4>Execute</h4>
+      <p>Deploy content, positioning, and distribution with precision</p>
+    </div>
+    <div class="step reveal reveal-delay-3">
+      <div class="step-dot">04</div>
+      <h4>Scale</h4>
+      <p>Amplify what works and push into new audiences</p>
+    </div>
+    <div class="step reveal reveal-delay-4">
+      <div class="step-dot">05</div>
+      <h4>Optimize</h4>
+      <p>Continuously refine based on real data and results</p>
+    </div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="section contact">
-  <h2>Let’s Build Your Brand Growth System</h2>
-  <p class="founder-line">Speak directly with KYSRK, Founder of AEVRA.</p>
-
-  <form name="contact" method="POST" data-netlify="true" class="premium-form">
-    <input type="hidden" name="form-name" value="contact">
-
-    <input type="text" name="name" placeholder="Your Name" required>
-    <input type="email" name="email" placeholder="Email Address" required>
-    <textarea name="message" placeholder="Tell us about your project"></textarea>
-
-    <button type="submit">Start the Conversation</button>
-  </form>
+<section id="contact" class="contact">
+  <div class="contact-inner">
+    <p class="section-label reveal">Let's Talk</p>
+    <h2 class="reveal">Ready to build a brand that <em>dominates</em>?</h2>
+    <p class="contact-sub reveal">Speak directly with Yaswanth, Founder of AEVRA. No gatekeepers. No generic proposals. Just a real conversation about your brand's growth.</p>
+    <form name="contact" method="POST" data-netlify="true" class="contact-form reveal">
+      <input type="hidden" name="form-name" value="contact">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+      <input type="text" name="brand" placeholder="Your Brand / Company">
+      <textarea name="message" placeholder="Tell me about your brand and where you want to take it"></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
-© 2025 AEVRA. All rights reserved.
+  <div class="footer-logo">AEVRA</div>
+  <div class="footer-copy">© 2026 AEVRA. All rights reserved. · aevra.in</div>
 </footer>
 
-<script src="script.js"></script>
-
+<script>
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12 });
+reveals.forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
